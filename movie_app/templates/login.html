@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Movie App | Login</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="{% static 'styles/css/login.css' %}" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'styles/bootstrap4/bootstrap.min.css' %}"
+    />
+  </head>
+  <body>
+    <div class="main-body container">
+      <div class="login-box">
+        <h2 class="">Login</h2>
+        <br />
+        <form method="POST" enctype="multypart/form-data">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              name="username"
+              placeholder="Username"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              placeholder="Password"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary reg-btn">Login</button>
+        </form>
+        <br />
+        <div class="form-footer">
+          <span class="text1">New to Movie App ?&nbsp;</span>
+          <span class="text2">
+            <a href="{%url 'signup'%}">Signup</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

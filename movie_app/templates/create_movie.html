@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Movie App | Login</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="{% static 'styles/css/create_movie.css' %}" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'styles/bootstrap4/bootstrap.min.css' %}"
+    />
+  </head>
+  <body>
+    <div class="main-body container">
+      <div class="login-box">
+        <h2 class="">Create Movie</h2>
+        <br />
+        <form method="POST" enctype="multypart/form-data">
+          {% csrf_token %}
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="title">Title</label>
+                <input
+                  required
+                  type="text"
+                  class="form-control"
+                  id="title"
+                  name="title"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="poster">Poster</label>
+                <input
+                  required
+                  type="text"
+                  class="form-control"
+                  id="poster"
+                  name="poster"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="category">Category</label>
+                <select
+                  required
+                  class="form-control"
+                  id="category"
+                  name="category"
+                >
+                  <option></option>
+                  <option>Comedy</option>
+                  <option>Action</option>
+                  <option>Thriller</option>
+                  <option>Horrer</option>
+                  <option>Drama</option>
+                  <option>Others</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="release">Release</label>
+                <input
+                  required
+                  type="date"
+                  class="form-control"
+                  id="release"
+                  name="release"
+                />
+              </div>
+              <div class="invalid-feedback">Please provide a valid zip.</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea
+                  required
+                  class="form-control"
+                  id="description"
+                  name="description"
+                  rows="3"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="actors">Actors</label>
+                <textarea
+                  required
+                  class="form-control"
+                  id="actors"
+                  name="actors"
+                  rows="3"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          {% comment %}
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="genre">Genre</label>
+                <select required class="form-control" id="genre" name="genre">
+                  <option></option>
+                  <option>Comedy</option>
+                  <option>Action</option>
+                  <option>Thriller</option>
+                  <option>Horrer</option>
+                  <option>Drama</option>
+                  <option>Others</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          {% endcomment %}
+          <div class="row">
+            <div class="col-md-6">
+              <button type="submit" class="btn btn-primary submit-btn">
+                Create
+              </button>
+            </div>
+          </div>
+        </form>
+        <br />
+      </div>
+    </div>
+  </body>
+</html>

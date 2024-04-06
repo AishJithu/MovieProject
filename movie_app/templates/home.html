@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+  </head>
+  <body>
+    {% if user.id %}
+    <h2>Welcome, {{ user.username }}!</h2>
+    <p>Email: {{ user.email }}</p>
+    {%else%}
+    <a class="btn btn-primary" href="{%url 'login'%}">Login</a>
+    {%endif%}
+  </body>
+</html>

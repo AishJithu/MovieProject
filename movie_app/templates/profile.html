@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+
+    <link rel="stylesheet" href="{% static 'styles/css/login.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/css/create_movie.css' %}" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'styles/bootstrap4/bootstrap.min.css' %}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <br />
+      <br />
+      <br />
+      <br />
+      <div
+        class="row"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        "
+      >
+        <div class="">
+          <h1 style="text-transform: capitalize">
+            Welcome, {{ user.first_name }} {{ user.last_name }}
+          </h1>
+
+          <p>{{ user.email }}</p>
+        </div>
+        <div>
+          <a class="btn btn-primary" href="{%url 'create_movie'%}">Add Movie</a>&nbsp;&nbsp;
+          <a class="btn btn-outline-danger" href="{%url 'logout'%}">Logout</a>
+        </div>
+      </div>
+      <hr/>
+      <br />
+      <h1>Your Movie ({{ movies|length }})</h1>
+      <br />
+
+      <div class="row">
+        {% if movies %} {% for movie_obj in movies %}
+        <div class="col-md-3">
+          <div class="card movie-card" style="height: 27rem">
+            <img
+              class="card-img-top movie-list-img"
+              src="{{ movie_obj.poster }}"
+              alt="Poster not available"
+              class="movie-list-img"
+            />
+            <div
+              class="card-body"
+              style="
+                display: flex;
+                flex-direction: column;
+                align-item: center;
+                justify-content: space-between;
+              "
+            >
+              <h5 class="card-title">{{ movie_obj.title }}</h5>
+              <p>Release: <b>{{ movie_obj.release }}</b></p>
+              <a
+                class="btn btn-outline-info"
+                style="width: 100%"
+                href="{% url 'movie_details' movie_id=movie_obj.id %}"
+                >View</a
+              >
+            </div>
+          </div>
+          <br />
+        </div>
+        {% endfor %} {% else %}
+        <br />
+        <br />
+        <h4>No movies added.</h4>
+
+        <a class="btn btn-primary" href="{%url 'create_movie'%}">+ Movie</a>
+
+        {% endif %}
+    </div>
+
+    <script src="" async defer></script>
+  </body>
+</html>

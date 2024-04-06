@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+    <link rel="stylesheet" href="{% static 'styles/css/create_movie.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'styles/css/login.css' %}" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'styles/bootstrap4/bootstrap.min.css' %}"
+    />
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+
+    {% for val in movie %}
+
+    <br />
+    <br />
+    <div class="container">
+      <h1>Movie Details</h1>
+      <hr />
+      <br />
+      <img
+        class="card-img-top movie-list-img"
+        src="{{ val.poster }}"
+        alt="Card image cap"
+        style="height: 20%; width: 50%"
+        class="movie-list-img2"
+      />
+
+      <div
+        class="row"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          margin-left: 0px;
+          margin-top: 10px;
+        "
+      >
+        {% if user.id == val.created_by%}
+        <a class="btn btn-primary" href="{% url 'edit_movie' movie_id=val.id %}"
+          >Edit</a
+        >&nbsp;&nbsp;&nbsp;
+        <a
+          class="btn btn-outline-danger"
+          href="{%url 'delete_movies' movie_id=val.id%}"
+          >Delete</a
+        >
+        {% endif %}
+      </div>
+
+      <br />
+
+      <h1><b>{{ val.title }}</b></h1>
+      <hr />
+      <h5><b>Release Date</b> : {{ val.release }}</h5>
+      <hr />
+      <h5><b>Category</b>: {{ val.category }}</h5>
+      <hr />
+      <h5><b>Actors</b>: {{ val.actors }}</h5>
+      <hr />
+      <h5><b>Description</b></h5>
+      <h5>{{ val.description }}</h5>
+      <hr />
+      <h5><b>Created By</b>: {{ user.first_name }} {{ user.last_name }}</h5>
+      <br />
+      <br />
+      <br />
+
+      <h3>Reviews</h3>
+
+      {% for review in reviews %}
+
+      <div
+        style="
+          background-color: #e3e5e8;
+          padding: 5px 10px 0px 10px;
+          margin-bottom: 15px;
+        "
+      >
+        <h4>{{review.description}}</h4>
+        <p>{{review.user_name}}</p>
+      </div>
+
+      {% endfor %}
+
+      <h6>Write your Review</h6>
+      <form
+        method="POST"
+        action="{% url 'create_review' movie_id=val.id %}"
+        enctype="multypart/form-data"
+      >
+        {% csrf_token %}
+        <div class="form-group">
+          <textarea
+            required
+            class="form-control"
+            id="description"
+            name="description"
+            rows="4"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-info reg-btn">Submit</button>
+      </form>
+    </div>
+    {% endfor %}
+    <br />
+    <br />
+
+    <script src="" async defer></script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+.main-body {
+  margin-top: 50px;
+}
+
+.submit-btn {
+  width: 100%;
+}
+
+.poster-img {
+  height: 200px;
+}
+
+.movie-list-img {
+  height: 250px;
+  background-size: contain;
+}
+.movie-list-img2 {
+  height: 100%;
+  width: 100px;
+  /* background-size: contain; */
+}
+
+.movie-card {
+  height: 300px;
+}
+
+.movie-list-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}

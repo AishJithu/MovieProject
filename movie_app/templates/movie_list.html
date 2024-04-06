@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Movie App | Movies</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="{% static 'styles/css/create_movie.css' %}" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'styles/bootstrap4/bootstrap.min.css' %}"
+    />
+  </head>
+  <body>
+    {% comment %} {% include 'nav.html' %} {% endcomment %}
+    <div class="container">
+      <br />
+      <div class="movie-list-header">
+        <a class="btn btn-primary" href="{%url 'create_movie'%}">+ Movie</a>
+        <form id="searchForm" method="get">
+          <div
+            style="
+              display: flex;
+              flex-direction: row;
+              align-item: center;
+              gap: 10px;
+            "
+          >
+            <input
+              type="text"
+              required
+              id="queryInput"
+              name="query"
+              class="form-control"
+              placeholder="Enter your search query"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+
+            <a class="btn btn-link" href="{%url 'movie_list'%}">clear</a>
+          </div>
+        </form>
+        {% if user.id %}
+        <a class="btn btn-success" href="{%url 'profile'%}">Profile</a>
+        {%else%}
+        <a class="btn btn-secondary" href="{%url 'login'%}">Login</a>
+        {%endif%}
+      </div>
+
+      <br />
+      <h1>Movie List ({{ movies|length }})</h1>
+      <br />
+
+      <div class="row">
+        {% if movies %} {% for movie_obj in movies %}
+        <div class="col-md-3">
+          <div class="card movie-card" style="height: 27rem">
+            <img
+              class="card-img-top movie-list-img"
+              src="{{ movie_obj.poster }}"
+              alt="Poster not available"
+              class="movie-list-img"
+            />
+            <div
+              class="card-body"
+              style="
+                display: flex;
+                flex-direction: column;
+                align-item: center;
+                justify-content: space-between;
+              "
+            >
+              <h5 class="card-title">{{ movie_obj.title }}</h5>
+              <p>Release: <b>{{ movie_obj.release }}</b></p>
+              <a
+                class="btn btn-outline-info"
+                style="width: 100%"
+                href="{% url 'movie_details' movie_id=movie_obj.id %}"
+                >View</a
+              >
+            </div>
+          </div>
+          <br />
+        </div>
+        {% endfor %} {% else %}
+        <br />
+        <br />
+        <h4>Sorry ! No movies found.</h4>
+
+        {% endif %}
+      </div>
+    </div>
+  </body>
+  <script>
+    document
+      .getElementById("searchForm")
+      .addEventListener("submit", function (event) {
+        var query = document.getElementById("queryInput").value;
+        this.action = "/search_movies/" + encodeURIComponent(query) + "/";
+      });
+  </script>
+</html>
