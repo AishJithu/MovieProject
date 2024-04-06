@@ -61,3 +61,16 @@ def logout(request):
         pass
     return redirect('login')
     # return HttpResponse("You're logged out.")
+    
+# def delete_user(request):
+#     print('delete')
+#     return HttpResponse("User Deleted")
+
+def delete_user(request, id):
+    print(id)
+    user = Users.objects.filter(id=id).first()
+    user.delete()
+    return redirect('admin_users')
+      
+   
+    # return render(request, 'your_template.html', {'object': obj})

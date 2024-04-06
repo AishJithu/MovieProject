@@ -91,17 +91,23 @@ def create_review(request, movie_id):
 #         return redirect('/')
 #     return render(request,'update.html',{'form':form,'movie':movie})
 
-def delete_movies(request,movie_id):
-    if request.method=='POST':
-        movie=Movies.objects.get(id=movie_id)
-        print(movie)
-        if movie:
-            movie.delete()
-            return HttpResponse('Movie Deleted')
-        else:
-            return HttpResponse('Movie not Deleted')
-    # return render(request,'delete.html')
-    return HttpResponse('Movie Deleted res')
+# def delete_movies(request,movie_id):
+#     if request.method=='POST':
+#         movie=Movies.objects.get(id=movie_id)
+#         print(movie)
+#         if movie:
+#             movie.delete()
+#             return HttpResponse('Movie Deleted')
+#         else:
+#             return HttpResponse('Movie not Deleted')
+#     # return render(request,'delete.html')
+#     return HttpResponse('Movie Deleted res')
    
+   
+def delete_movies(request, movie_id):
+    print(movie_id)
+    user = Movies.objects.filter(id=movie_id).first()
+    user.delete()
+    return redirect('movie_list')
 
 

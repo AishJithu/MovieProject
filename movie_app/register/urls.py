@@ -23,6 +23,9 @@ urlpatterns = [
     path('login/', views.login, name="login"),
     path('profile/', views.view_profile, name="profile"),
     path('logout/', views.logout, name="logout"),
+    # path('delete_user/', views.delete_user, name="delete_user"),
+    path('delete_user/<int:id>/', views.delete_user, name='delete_user'),
+
     
     # path('', views.login, name='login'),
     # path('home/', views.home, name='home'),
