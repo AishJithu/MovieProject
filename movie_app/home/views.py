@@ -13,5 +13,5 @@ def home(request):
         movies = Movies.objects.filter()
         return render(request, 'movie_list.html', {'movies': movies,'user':user})
     else:
-        return render(request, 'home.html')
+        return render(request, 'movie_list.html')
         
