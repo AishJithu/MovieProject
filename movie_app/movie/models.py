@@ -4,17 +4,18 @@ from django.contrib.auth.models import User as DjangoUser
 
 class Movies(models.Model):
     title = models.CharField(max_length=255)
-    poster = models.CharField(max_length=255)
-    description = models.TextField()  # Changed to TextField for long text
-    release = models.DateField()  # Removed max_length, DateField does not need it
-    actors = models.CharField(max_length=255)  # This could be a ManyToManyField if actors are related to multiple movies
-    category = models.CharField(max_length=255)  # Changed to CharField assuming it's a category name
-    genre = models.CharField(max_length=255)  # Changed 'gener' to 'genre', assuming it's the movie genre
-    status = models.BooleanField(default=True)  # Changed default to True assuming it's active by default
-    created_by = models.IntegerField()  # Changed to DateTimeField with auto_now_add for creation timestamp
-    created_at = models.DateTimeField(auto_now_add=True)  # Changed to DateTimeField with auto_now_add for creation timestamp
-    updated_at = models.DateTimeField(auto_now=True)  # Changed to DateTimeField with auto_now for update timestamp
-
+    description = models.TextField()  
+    actors = models.CharField(max_length=255)  
+    category = models.CharField(max_length=255)  
+    genre = models.CharField(max_length=255)  
+    status = models.BooleanField(default=True)  
+    release = models.DateField(auto_now_add=True)
+    created_by = models.IntegerField()  
+    created_at = models.DateField(auto_now_add=True)  
+    updated_at = models.DateField(auto_now=True)  
+    poster = models.ImageField(null=True, blank=True, upload_to="images/")
+    trailer = models.CharField(null=True, blank=True, max_length=255)  
+    
 
 class Reviews(models.Model):
     movie= models.IntegerField()

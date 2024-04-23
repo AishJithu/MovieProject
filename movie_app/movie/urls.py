@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('movie/', views.movie, name='movie'),
@@ -11,4 +14,8 @@ urlpatterns = [
     path('movie_details/<int:movie_id>/', views.movie_details, name='movie_details'),
     path('search_movies/<str:query>/', views.search_movies, name='search_movies'),
     path('delete_movies/<int:movie_id>/', views.delete_movies, name='delete_movies'),
+    path('movies/<int:movie_id>/edit/', views.edit_movie, name='edit_movie'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

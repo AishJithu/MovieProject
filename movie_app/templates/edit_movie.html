@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Movie App | Login</title>
+    <title>Movie App | Edit Movie</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -19,126 +19,97 @@
   <body>
     <div class="main-body container">
       <div class="login-box">
-        <h2 class="">Create Movie</h2>
+        <h2 class="">Edit Movie</h2>
         <br />
-        <form method="POST" enctype="multypart/form-data">
-          {% csrf_token %} {% for val in movie %}
+        <form method="post">
+          {% csrf_token %}
+
+          <label for="title">Title:</label><br />
+          <input
+          class="form-control"
+            type="text"
+            id="title"
+            name="title"
+            value="{{ movie.title }}"
+          /><br />
+
+          <label for="poster">Poster:</label><br />
+
+          <input type="hidden" name="poster" id="poster" />
+
+          <input
+          type="file"
+          name="poster2"
+          id="imageInput"
+          onchange="convertToBase64()"
+        />
+
+          
+      <img
+      class="card-img-top movie-list-img"
+      src="{{ movie.poster }}"
+      style="height: 10%; width: 10%"
+      alt="Poster not available"
+      class="movie-list-img2"
+      id="poster1"
+    />
+          
+  
+
+
+          <br />
+
+          <label for="description">Description:</label><br />
+          <textarea id="description"  class="form-control" name="description">
+{{ movie.description }}</textarea
+          ><br />
+
+          <label for="actors">Actors:</label><br />
+          <textarea id="actors"  class="form-control" name="actors">
+{{ movie.actors }}</textarea
+          ><br />
+
+
+          <label for="category">Category:</label><br />
+          <select  required
+                id="category"  class="form-control"
+                name="category">
+                  <option value="Comedy" {% if movie.category == "Comedy" %}selected="selected"{% endif %}>Comedy</option>
+                  <option value="Action" {% if movie.category == "Action" %}selected="selected"{% endif %}>Action</option>
+                  <option value="Thriller" {% if movie.category == "Thriller" %}selected="selected"{% endif %}>Thriller</option>
+                  <option value="Horrer" {% if movie.category == "Horrer" %}selected="selected"{% endif %}>Horrer</option>
+                  <option value="Drama" {% if movie.category == "Drama" %}selected="selected"{% endif %}>Drama</option>
+                  <option value="Others" {% if movie.category == "Others" %}selected="selected"{% endif %}>Others</option>
+              </select>
+              <br />
 
           <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="title">Title</label>
-                <input
-                  required
-                  type="text"
-                  class="form-control"
-                  name="title"
-                  value="{{val.title}}"
-                />
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="poster">Poster</label>
-                <input
-                  required
-                  type="text"
-                  class="form-control"
-                  id="poster"
-                  name="{{val.poster}}"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="category">Category</label>
-                <select
-                  required
-                  class="form-control"
-                  id="category"
-                  name="category"
-                >
-                  <option></option>
-                  <option selected>Comedy</option>
-                  <option>Action</option>
-                  <option>Thriller</option>
-                  <option>Horrer</option>
-                  <option>Drama</option>
-                  <option>Others</option>
-                </select>
-              </div>
+            <div class="col-md-3">
+              <a type="" class="btn btn-outline-danger submit-btn" href="{%url 'home'%}">Cancel</a>
             </div>
 
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="release">Release</label>
-                <input required type="date" class="form-control" id="release"
-                name="release" value="{{ val.release|date:"Y-m-d" }}" />
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="description">Description</label>
-                <textarea
-                  required
-                  class="form-control"
-                  id="description"
-                  name="description"
-                  rows="3"
-                ></textarea>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="actors">Actors</label>
-                <textarea
-                  required
-                  class="form-control"
-                  id="actors"
-                  name="actors"
-                  rows="3"
-                  value="hhh"
-                ></textarea>
-              </div>
-            </div>
-          </div>
-
-          {% endfor %} {% comment %}
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="genre">Genre</label>
-                <select required class="form-control" id="genre" name="genre">
-                  <option></option>
-                  <option>Comedy</option>
-                  <option>Action</option>
-                  <option>Thriller</option>
-                  <option>Horrer</option>
-                  <option>Drama</option>
-                  <option>Others</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          {% endcomment %}
-          <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
               <button type="submit" class="btn btn-primary submit-btn">
                 Save
               </button>
             </div>
           </div>
         </form>
-        <br />
+        <br /><br /><br />
       </div>
     </div>
   </body>
-  <script></script>
+  <script>
+    function convertToBase64() {
+      const fileInput = document.getElementById("imageInput");
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        document.getElementById("poster").value = reader.result;
+        document.getElementById("poster1").src = reader.result;
+        console.log("base64 ---> ", reader.result);
+      };
+    }
+  </script>
 </html>

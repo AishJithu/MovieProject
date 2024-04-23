@@ -21,7 +21,7 @@
       <div class="login-box">
         <h2 class="">Create Movie</h2>
         <br />
-        <form method="POST" enctype="multypart/form-data">
+        <form method="POST" enctype="multipart/form-data">
           {% csrf_token %}
 
           <div class="row">
@@ -37,21 +37,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="poster">Poster</label>
-                <input
-                  required
-                  type="text"
-                  class="form-control"
-                  id="poster"
-                  name="poster"
-                />
-              </div>
-            </div>
-          </div>
 
-          <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="category">Category</label>
@@ -69,6 +55,22 @@
                   <option>Drama</option>
                   <option>Others</option>
                 </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="trailer">Traier</label>
+                <input
+                  required
+                  type="text"
+                  class="form-control"
+                  id="trailer"
+                  placeholder="Youtybe Video ID"
+                  name="trailer"
+                />
               </div>
             </div>
 
@@ -115,24 +117,24 @@
             </div>
           </div>
 
-          {% comment %}
           <div class="row">
             <div class="col-md-6">
-              <div class="form-group">
-                <label for="genre">Genre</label>
-                <select required class="form-control" id="genre" name="genre">
-                  <option></option>
-                  <option>Comedy</option>
-                  <option>Action</option>
-                  <option>Thriller</option>
-                  <option>Horrer</option>
-                  <option>Drama</option>
-                  <option>Others</option>
-                </select>
+              <br />
+              <div class="">
+                <label for="poster">Poster</label>
+
+                <input
+                  type="file"
+                  id="poster"
+                  name="poster"
+                  accept="image/*"
+                  required
+                />
               </div>
+              <br />
             </div>
           </div>
-          {% endcomment %}
+
           <div class="row">
             <div class="col-md-6">
               <button type="submit" class="btn btn-primary submit-btn">
@@ -141,8 +143,21 @@
             </div>
           </div>
         </form>
+        <div id="imagePreview"></div>
         <br />
       </div>
     </div>
   </body>
+  <script>
+    function convertToBase64() {
+      const fileInput = document.getElementById("imageInput");
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        document.getElementById("poster").value = reader.result;
+        console.log("base64 ---> ", reader.result);
+      };
+    }
+  </script>
 </html>

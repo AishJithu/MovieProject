@@ -63,7 +63,7 @@
           <div class="card movie-card" style="height: 27rem">
             <img
               class="card-img-top movie-list-img"
-              src="{{ movie_obj.poster }}"
+              src="{{ movie_obj.poster.url }}"
               alt="Poster not available"
               class="movie-list-img"
             />
@@ -77,7 +77,10 @@
               "
             >
               <h5 class="card-title">{{ movie_obj.title }}</h5>
-              <p>Release: <b>{{ movie_obj.release }}</b></p>
+              <p>
+                Release:
+                <b>{{ movie_obj.release }}</b>
+              </p>
               <a
                 class="btn btn-outline-info"
                 style="width: 100%"

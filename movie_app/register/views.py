@@ -19,13 +19,15 @@ def signup(request):
         password = request.POST['password']
         user = Users.objects.filter(username=username).first()
         if user:
-            return HttpResponse('username already exist')
+            return render(request, 'signup.html', {'status':False, 'message':'Username already created. Try new one'} )
+            # return HttpResponse('username already exist')
+        # 
         else:
             user = Users.objects.create(username=username, email=email, password=password, first_name=first_name, last_name=last_name,status=True,is_admin=False)
             user.save()
             messages.success(request, 'Account created successfully')
             return redirect('login')
-    return render(request, 'signup.html')
+    return render(request, 'signup.html',{'status':True, 'message':''})
 
 #login
 def login(request):
